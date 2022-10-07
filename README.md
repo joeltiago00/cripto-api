@@ -26,11 +26,11 @@ Configure sua conexão com o banco de dados ou se preferir usar conexão do loca
 
 ```
 DB_CONNECTION=mysql
-DB_HOST=mysqlsrv
-DB_PORT=3306
-DB_DATABASE=api_restaurant_multiplier_dev
-DB_USERNAME=root
-DB_PASSWORD=root
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWORD=root
+MYSQL_DB_NAME=cripto_local
 ```
 
 <br>
