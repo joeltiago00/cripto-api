@@ -3,4 +3,3 @@ export default interface IBinanceService {
 
   getSymbolPrice(symbol: string)
 }
-//Promise<string[]>

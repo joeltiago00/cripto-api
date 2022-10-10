@@ -39,7 +39,7 @@ export default class BinanceSymbolIntegration implements IBinanceSymbolIntegrati
           continue
         }
 
-        if (!this._symbolService.store(symbol, price)) throw new Error('error in db')
+        this._symbolService.store(symbol, price)
 
         console.log(`synced: ${symbol}: ${price}`)
       } catch (err) {
