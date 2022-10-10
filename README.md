@@ -44,7 +44,7 @@ node ace migration:run
 Para importar os simbolos a partir da Binance execute:
 
 ```
-node ace sync:symbols_from_binance
+node ace save:symbols_from_binance
 ```
 
 <br>
@@ -72,5 +72,6 @@ localhost:3333/
 
 ```
 /symbols - Listagem de simbolos
-/symbols/:symbol - Mostrar simbolo
+/symbols/get-by-name/:symbol - Mostrar simbolo
+/symbols/start-sync - Sincroniza os simbolos da binance
 ```
