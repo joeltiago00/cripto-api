@@ -2,6 +2,7 @@ import { Spot } from '@binance/connector'
 import { binance_integration } from './../../../config/app'
 import IBinanceService from './Contracts/IBinanceService'
 import { Console } from 'console'
+import TimerUtil from '../../Utils/TimerUtil'
 
 export default class BinanceService implements IBinanceService {
   client: Spot
@@ -32,10 +33,10 @@ export default class BinanceService implements IBinanceService {
   }
 
   async getSymbolPrice(symbol: string) {
-    setTimeout(async () => {
-      return await this.client.avgPrice(symbol).then((response) => {
-        return response.data.price
-      })
-    }, 60000)
+    await TimerUtil.delay(1000)
+
+    return await this.client.avgPrice(symbol).then((response) => {
+      return response.data.price
+    })
   }
 }

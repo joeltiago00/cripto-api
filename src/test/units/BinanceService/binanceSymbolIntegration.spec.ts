@@ -8,15 +8,13 @@ const binanceService = new BinanceService()
 const symbolIntegration = new BinanceSymbolIntegration()
 
 test.group('Binance Symbol Integration Tests', () => {
-  test
-    .only('example', async (assert) => {
-      await symbolIntegration.syncSymbols()
+  test('when_sync_OK', async (assert) => {
+    await symbolIntegration.syncSymbols()
 
-      const symbols = await binanceService.getSymbols()
+    const symbols = await binanceService.getSymbols()
 
-      const model = Boolean(await Symbols.findByOrFail('name', symbols[0]))
+    const model = Boolean(await Symbols.findByOrFail('name', symbols[0]))
 
-      assert.isTrue(model)
-    })
-    .timeout(600000)
+    assert.isTrue(model)
+  }).timeout(600000)
 })

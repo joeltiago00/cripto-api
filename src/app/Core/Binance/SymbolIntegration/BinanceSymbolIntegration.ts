@@ -25,14 +25,26 @@ export default class BinanceSymbolIntegration implements IBinanceSymbolIntegrati
   }
 
   private async save(symbols: Array<string>): Promise<void> {
-    symbols.forEach(async (symbol) => {
+    for (const symbol of symbols) {
       try {
         const price = await this._binanceService.getSymbolPrice(symbol)
 
+        const model = await this._symbolService.getByName(symbol)
+
+        if (model) {
+          this._symbolService.updateById(model.id, { average_price: price })
+
+          console.log(`update: ${symbol}: ${price}`)
+
+          continue
+        }
+
         if (!this._symbolService.store(symbol, price)) throw new Error('error in db')
+
+        console.log(`synced: ${symbol}: ${price}`)
       } catch (err) {
-        console.log(err)
+        console.log(`erro in save: ${err}`)
       }
-    })
+    }
   }
 }

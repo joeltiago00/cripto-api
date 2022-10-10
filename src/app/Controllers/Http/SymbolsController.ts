@@ -1,19 +1,37 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+// import { Symbols } from 'App/Models/Symbols'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-import BinanceService from 'App/Services/Binance/BinanceService'
+import SymbolRepository from 'App/Repositories/SymbolRepository'
+import ISymbolService from 'App/Services/Symbol/Contracts/ISymbolService'
+import SymbolService from 'App/Services/Symbol/SymbolService'
+import BinanceSymbolIntegration from 'App/Core/Binance/SymbolIntegration/BinanceSymbolIntegration'
 
 export default class SymbolsController {
-  // private _symbolService: ISymbolService
+  private _symbolService: ISymbolService
 
-  // constructor() {
-  //   this._symbolService = new SymbolService(new SymbolRepository())
-  // }
+  constructor() {
+    this._symbolService = new SymbolService(new SymbolRepository())
+  }
 
-  async store() {
-    const binanceService = new BinanceService()
+  async show({ request, response }: HttpContextContract) {
+    const symbol = await this._symbolService.getByName(request.param('symbol'))
 
-    const symbols = await binanceService.getSymbols()
+    if (!symbol) return response.notFound({ message: 'Symbol not found.' })
 
-    console.log(symbols)
+    return response.ok(symbol.toObject())
+  }
+
+  async index({ request, response }: HttpContextContract) {
+    const symbols = await this._symbolService.list(+request.all().page, +request.all().per_page)
+
+    return response.ok(symbols)
+  }
+
+  async sync({ response }: HttpContextContract) {
+    const symbolIntegration = new BinanceSymbolIntegration()
+
+    await symbolIntegration.syncSymbols()
+
+    return response.ok({ message: 'Syncing started' })
   }
 }

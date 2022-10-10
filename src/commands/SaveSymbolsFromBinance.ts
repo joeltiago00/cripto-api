@@ -5,7 +5,7 @@ export default class SaveSymbolsFromBinance extends BaseCommand {
   /**
    * Command name is used to run the command
    */
-  public static commandName = 'sync:symbols_from_binance'
+  public static commandName = 'save:symbols_from_binance'
 
   /**
    * Command description is displayed in the "help" output
@@ -30,6 +30,8 @@ export default class SaveSymbolsFromBinance extends BaseCommand {
   }
 
   public async run() {
+    console.log(1)
+
     const symbolIntegration = new BinanceSymbolIntegration()
 
     await symbolIntegration.syncSymbols()

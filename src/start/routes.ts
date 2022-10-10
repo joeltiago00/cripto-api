@@ -21,10 +21,11 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+  return { message: 'API IS ONLINE' }
 })
 
-Route.get('/test', 'SymbolsController.store')
-Route.put('/users/:id', 'UserController.update')
-
-
+Route.group(() => {
+  Route.get('/', 'SymbolsController.index')
+  Route.get('/get-by-name/:symbol', 'SymbolsController.show')
+  Route.get('/start-sync', 'SymbolsController.sync')
+}).prefix('/symbols')
