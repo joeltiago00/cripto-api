@@ -41,13 +41,6 @@ node ace migration:run
 ```
 
 <br>
-Para importar os simbolos a partir da Binance execute:
-
-```
-node ace save:symbols_from_binance
-```
-
-<br>
 Container OK, Configuração OK. 👌
 <br>
 
