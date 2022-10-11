@@ -11,8 +11,11 @@ docker-compose up -d --build
 Caso seja necessário entrar no container execute:
 
 ```
-docker-compose exec app bash
+docker-compose exec mysqlsrv bash
 ```
+
+<br>
+<hr>
 
 # Configurando aplicação 🤖
 
@@ -33,24 +36,55 @@ MYSQL_PASSWORD=root
 MYSQL_DB_NAME=cripto_local
 ```
 
+Se precisar entrar no container como root use:
+
+```
+docker-compose exec -uroot mysqlsrv bash
+```
+
 <br>
+
+<hr>
+
+# Instalando dependências
+
+Entre na pasta src utilizando:
+
+```
+cd ./src
+```
+
+Logo seguida instale os pacotes executando o comando:
+
+```
+npm install
+```
+
 Crie as tabelas no banco de dados:
 
 ```
 node ace migration:run
 ```
 
+Para inicar a aplicação execute:
+
+```
+npm run dev
+```
+
+Para executar os testes da aplicação execute
+
+```
+npm run test
+```
+
 <br>
+
 Container OK, Configuração OK. 👌
+
 <br>
 
-#
-
-Se precisar entrar no container como root use:
-
-```
-docker-compose exec -uroot app bash
-```
+<hr>
 
 # Testando API
 
@@ -64,6 +98,7 @@ localhost:3333/
 # Rotas API
 
 ```
+/ - Teste de API
 /symbols - Listagem de simbolos
 /symbols/get-by-name/:symbol - Mostrar simbolo
 /symbols/start-sync - Sincroniza os simbolos da binance
