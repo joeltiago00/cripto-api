@@ -32,7 +32,7 @@ export default class BinanceSymbolIntegration implements IBinanceSymbolIntegrati
         const model = await this._symbolService.getByName(symbol)
 
         if (model) {
-          this._symbolService.updateById(model.id, { average_price: price })
+          this._symbolService.updateById(Number(model.id), { average_price: price })
 
           console.log(`update: ${symbol}: ${price}`)
 
